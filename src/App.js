@@ -9,10 +9,8 @@ class App extends Component {
       { id: 1, value: 0 },
       { id: 2, value: 0 },
       { id: 3, value: 0 },
-      { id: 4, value: 0 },
     ],
   };
-
   handleIncrement = (counter) => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
@@ -21,13 +19,21 @@ class App extends Component {
     this.setState({ counters });
   };
 
-  handleReset = () => {
-    const counters = this.state.counters.map((c) => {
-      c.value = 0;
-      return c;
-    });
-    this.setState({ counters });
-  };
+  handleAdd = () =>{
+    const counters = this.state.counters;
+    const maxId = Math.max.apply(Math, counters.map(x => x.id));
+    counters.push({id: (maxId+1), value: 1});
+
+    this.setState({counters});
+  }
+
+  // handleReset = () => {
+  //   const counters = this.state.counters.map((c) => {
+  //     c.value = 0;
+  //     return c;
+  //   });
+  //   this.setState({ counters });
+  // };
 
   handleDelete = (counterId) => {
     console.log("Event Handler Called", counterId);
@@ -41,7 +47,8 @@ class App extends Component {
         <main className="container">
           <Counters
             counters={this.state.counters}
-            onReset={this.handleReset}
+            onAdd = {this.handleAdd}
+            // onReset={this.handleReset}
             onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
           />
