@@ -4,9 +4,9 @@ import Counter from "./counter";
 class Counters extends Component {
 
   render() {
-      const {onAdd, counters, onDelete, onIncrement} = this.props;
+      const {onAdd, counters, onDelete, onIncrement, onNameChange} = this.props;
     return (
-      <div>
+      <div className="center-item">
         <button
         onClick={onAdd}
         className="btn btn-primary btn-sm m-2">Add Item</button>
@@ -17,8 +17,10 @@ class Counters extends Component {
             key={counter.id}
             onDelete={onDelete}
             onIncrement={onIncrement}
+            onNameChange={onNameChange}
             counter={counter}
-            //Instead of this, pass the entire counter as a props so that if the Counter objec changes in the future, it is also reflected in this parent
+            //Instead of this, pass the entire counter as a props so 
+            //that if the Counter objec changes in the future, it is also reflected in this parent
             //value={counter.value}
             //id={counter.id}
           />

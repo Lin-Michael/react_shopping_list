@@ -5,3 +5,11 @@
 .num-items{
     width:40px;
 }
+
+.counter-width{
+    width:450px;
+}
+
+.error-msg{
+    white-space: nowrap;
+}

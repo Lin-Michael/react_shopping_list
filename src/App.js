@@ -6,23 +6,38 @@ import "./App.css";
 class App extends Component {
   state = {
     counters: [
-      { id: 1, value: 0 },
-      { id: 2, value: 0 },
-      { id: 3, value: 0 },
+      { id: 1, name: "", value: 0 },
+      { id: 2, name: "", value: 0 },
+      { id: 3, name: "", value: 0 },
     ],
   };
+
+  handleNameChange = (counter, e) =>{
+    const name = e.target.value;
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index].name = name;
+    this.setState({ counters });
+  }
+
   handleIncrement = (counter) => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
     counters[index] = { ...counter };
-    counters[index].value++;
+    if(counter.name===""){
+      counters[index].value =0;//Empty name means a count of 0
+    }
+    else{
+      counters[index].value++;
+    }
+    
     this.setState({ counters });
   };
 
   handleAdd = () =>{
     const counters = this.state.counters;
     const maxId = Math.max.apply(Math, counters.map(x => x.id));
-    counters.push({id: (maxId+1), value: 1});
+    counters.push({id: (maxId+1), name:"", value: 0});
 
     this.setState({counters});
   }
@@ -45,13 +60,19 @@ class App extends Component {
       <React.Fragment>
         <NavBar totalCounters={this.state.counters.filter(c => c.value >0).length} />
         <main className="container">
-          <Counters
+          <div className="row">
+            <div className="col justify-content-center">
+            <Counters
             counters={this.state.counters}
             onAdd = {this.handleAdd}
             // onReset={this.handleReset}
             onIncrement={this.handleIncrement}
             onDelete={this.handleDelete}
+            onNameChange={this.handleNameChange}
           />
+            </div>
+          </div>
+
         </main>
       </React.Fragment>
     );
